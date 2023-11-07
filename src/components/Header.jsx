@@ -1,25 +1,45 @@
-import { signOut } from 'firebase/auth';
-import React from 'react'
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { useEffect } from 'react'
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser, removeUser } from '../utils/userSlice';
+import { LOGO } from '../utils/constants';
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((store)=>store.user)
   const handleClickButton = () => {
     signOut(auth).then(() => {
-      navigate("/");
+      
     }).catch((error) => {
       navigate("/error");
     });
   }
+
+  useEffect(()=>{
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const {uid,email,displayName,photoURL} = user;
+        dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}))
+        navigate("/browse");
+      } else {
+          dispatch(removeUser());
+          navigate('/')
+          
+      }
+    });
+    // Unsubscribe when the component unmounts 
+    return () => unsubscribe();
+  },[])
+
   return (
     <div className='flex justify-between px-24 py-4 absolute bg-gradient-to-b from-black w-full z-10'>
-        <img src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png" alt="logo" className='w-48'/>
+        <img src={LOGO} alt="logo" className='w-48'/>
         <div>
             <button className='border border-solid border-white px-7 py-1 m-4 text-white rounded-md'>English</button>
-            {user ? (<button className='bg-red-500 text-white px-4 py-1 m-4 rounded-md' onClick={handleClickButton}>Sign Out</button>):(<button className='bg-red-500 text-white px-4 py-1 m-4 rounded-md'>Sign In</button>)}
+            {user && <button className='bg-red-500 text-white px-4 py-1 m-4 rounded-md' onClick={handleClickButton}>Sign Out</button>}
         </div>
     </div>
   )
