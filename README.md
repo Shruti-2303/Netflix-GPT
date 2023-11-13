@@ -29,6 +29,14 @@
     -Update Store with Trailer Video Data
     -Embedded the Youtube video and make it autoplay and mute
     -Tailwind Classes to make it look awesome
+    -Secondary Component
+    -Movie List
+    -Movie Card
+    -TMDB Image CDN URL
+    -Made the Browse Page amazing with Tailwind CSS
+    -GPT Search Page
+    -GPT Search Bar
+    -Multi-language Feature in our App
 
 # Features
 
