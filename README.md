@@ -37,6 +37,13 @@
     -GPT Search Page
     -GPT Search Bar
     -Multi-language Feature in our App
+    -Get Open AI API Key
+    -Fetched gptMoviesSuggestion from TMDB
+    -created gptSlice added data
+    -Reused Movie List component to make moie suggestion container
+    -Memoization
+    -adding .env file to gitignore
+    -Made our site responsive
 
 # Features
 
