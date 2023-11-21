@@ -47,7 +47,7 @@ const Header = () => {
 
   return (
     <div className='flex flex-col md:flex-row justify-between px-5 py-2 absolute bg-gradient-to-b from-black w-full z-10 '>
-        <img src={LOGO} alt="logo" className='w-28 mx-auto md:mx-0'/>
+        <img src={LOGO} alt="logo" className='w-40 mx-auto md:mx-0'/>
         <div className='flex p-2 justify-between'>
             {showGptSearch && user && <select className=' bg-white px-4 py-1 md:m-4 m-2 text-black rounded-md font-semibold' onChange={handleLanguageChange}>
               {SUPPORTED_LANGUAGES.map(lang=><option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)}
